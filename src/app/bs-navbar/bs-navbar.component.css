@@ -1,0 +1,8 @@
+.dropdown-toggle {
+    cursor: pointer;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+    /* outline: 1px solid white; */
+}
