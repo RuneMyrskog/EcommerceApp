@@ -3,7 +3,8 @@ import { CanActivateFn, Router } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
+import { UserService } from './user.service';
 
 
 @Injectable({
@@ -11,15 +12,13 @@ import { map } from 'rxjs';
 })
 class AdminPermissionsService {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private userService: UserService, private auth: AuthService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.auth.user$.pipe(map(user => {
-      if (user) return true;
-
-      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-      return false;
-    }));
+    return this.auth.appUser$
+      .pipe(
+        map(appUser => appUser!.isAdmin)
+      );
   }
 }
 
