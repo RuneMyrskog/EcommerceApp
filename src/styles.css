@@ -4,3 +4,7 @@
 body {
     padding-top: 4rem;
 }
+
+a {
+    cursor: pointer;
+}

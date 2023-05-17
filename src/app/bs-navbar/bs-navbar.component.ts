@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'bs-navbar',
@@ -8,6 +8,14 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class BsNavbarComponent {
   isMenuCollapsed = true;
+
+  constructor(public auth: AuthService){
+    
+  }
+
+  logout() {
+    this.auth.logout();
+  }
 
   toggle(){
     this.isMenuCollapsed = !this.isMenuCollapsed;
