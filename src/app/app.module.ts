@@ -19,7 +19,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AuthService } from './auth.service';
     NgbModule,
   ],
   providers: [
-    AuthService
+    AuthService,
+    UserService,
   ],
   bootstrap: [AppComponent]
 })
