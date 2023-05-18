@@ -8,3 +8,10 @@
     box-shadow: none;
     /* outline: 1px solid white; */
 }
+
+.badge-warning {
+    background-color: rgb(255, 208, 0);
+    padding: calc(var(--bs-badge-padding-y) / 2) var(--bs-badge-padding-x);
+    color: black;
+    margin-left: 0.2rem;
+}
