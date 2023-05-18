@@ -27,6 +27,9 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import { CategoryService } from './services/category.service';
 import { ValidateMinValueDirective } from './directives/custom-validators/validate-min-value.directive';
 import { ValidateImgUrlDirective } from './directives/custom-validators/validate-img-url.directive';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+import { ShoppingCartService } from './services/shopping-cart.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,9 @@ import { ValidateImgUrlDirective } from './directives/custom-validators/validate
     MyOrdersComponent,
     ProductFormComponent,
     ValidateMinValueDirective,
-    ValidateImgUrlDirective
+    ValidateImgUrlDirective,
+    ProductFilterComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +64,7 @@ import { ValidateImgUrlDirective } from './directives/custom-validators/validate
     AuthService,
     UserService,
     CategoryService,
+    ShoppingCartService
   ],
   bootstrap: [AppComponent]
 })
