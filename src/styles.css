@@ -8,3 +8,12 @@ body {
 a {
     cursor: pointer;
 }
+
+.input-group-prepend .input-group-text {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+form .btn.btn-primary {
+    margin-top: 2rem;
+}

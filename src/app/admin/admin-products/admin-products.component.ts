@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-admin-products',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent {
+  products$: any;
 
+  constructor(private productService: ProductService){
+    this.products$ = this.productService.getAll()
+
+  }
 }

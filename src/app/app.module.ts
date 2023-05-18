@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
@@ -15,13 +16,17 @@ import { ProductsComponent } from './products/products.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrderSuccessComponent } from './order-success/order-success.component';
-import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
-import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './login/login.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
-import { ProductFormComponent } from './services/admin/product-form/product-form.component';
+
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from './services/category.service';
+import { ValidateMinValueDirective } from './directives/custom-validators/validate-min-value.directive';
+import { ValidateImgUrlDirective } from './directives/custom-validators/validate-img-url.directive';
 
 @NgModule({
   declarations: [
@@ -36,10 +41,13 @@ import { ProductFormComponent } from './services/admin/product-form/product-form
     AdminOrdersComponent,
     LoginComponent,
     MyOrdersComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ValidateMinValueDirective,
+    ValidateImgUrlDirective
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
@@ -50,6 +58,7 @@ import { ProductFormComponent } from './services/admin/product-form/product-form
   providers: [
     AuthService,
     UserService,
+    CategoryService,
   ],
   bootstrap: [AppComponent]
 })
