@@ -30,6 +30,10 @@ import { ValidateImgUrlDirective } from './directives/custom-validators/validate
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import { OrderService } from './services/order.service';
+import { ProductService } from './services/product.service';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +54,8 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     ProductFilterComponent,
     ProductCardComponent,
     ProductQuantityComponent,
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +71,8 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     AuthService,
     UserService,
     CategoryService,
+    ProductService,
+    OrderService,
   ],
   bootstrap: [AppComponent]
 })
