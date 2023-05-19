@@ -1,4 +1,4 @@
-import { switchMap, Subscription } from 'rxjs';
+import { switchMap, Subscription, Observable } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,40 +11,40 @@ import { Product } from '../models/product';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnDestroy{
+export class ProductsComponent implements OnInit{
   products: Product[] = [];
   filteredProducts: Product[] = [];
   category: string | null;
-  cart: ShoppingCart;
-  subscription: Subscription;
+  cart$: Observable<ShoppingCart>;
 
   constructor(
-    productService: ProductService,
-    route: ActivatedRoute,
-    cartService: ShoppingCartService){
+    private productService: ProductService,
+    private route: ActivatedRoute,
+    private cartService: ShoppingCartService){
+  }
 
-    console.log("products constructor ENTER");
-    cartService.getCart().then(cart$ => 
-      this.subscription = cart$.subscribe(cart => this.cart = cart));
+  async ngOnInit() {
+    this.cart$ = await this.cartService.getCart();
+    this.populateProducts();
+  }
 
-    console.log("products constructor EXIT");
-    productService
+  private populateProducts(){
+    this.productService
       .getAll()
       .pipe(switchMap(products => {
-        this.products=products
-        return route.queryParamMap
+        this.products = products
+        return this.route.queryParamMap
       }))
       .subscribe(params => {
         this.category = params.get('category');
-        this.filteredProducts = (this.category) ?
-          this.products.filter(p => p.category == this.category) :
-          this.products;
-    });
-    
+        this.applyFilter();
+      });
   }
 
-
-  ngOnDestroy(): void {
-      this.subscription.unsubscribe();
+  private applyFilter(){
+    this.filteredProducts = (this.category) ?
+      this.products.filter(p => p.category == this.category) :
+      this.products;
   }
+
 }

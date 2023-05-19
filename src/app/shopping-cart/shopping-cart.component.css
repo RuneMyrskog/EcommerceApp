@@ -1,0 +1,19 @@
+.table-right-header {
+    width: 18rem;
+}
+
+.thumbnail {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.btn-light {
+    /* --bs-btn-bg: #dbdbdb; */
+    /* --bs-btn-hover-bg: #c0c0c0; */
+}
+
+#clear-cart-button {
+    margin-left: 1rem;
+}
