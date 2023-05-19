@@ -11,7 +11,7 @@ import { Product } from '../models/product';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit, OnDestroy{
+export class ProductsComponent implements OnDestroy{
   products: Product[] = [];
   filteredProducts: Product[] = [];
   category: string | null;
@@ -21,10 +21,13 @@ export class ProductsComponent implements OnInit, OnDestroy{
   constructor(
     productService: ProductService,
     route: ActivatedRoute,
-    private cartService: ShoppingCartService){
+    cartService: ShoppingCartService){
 
-    
+    console.log("products constructor ENTER");
+    cartService.getCart().then(cart$ => 
+      this.subscription = cart$.subscribe(cart => this.cart = cart));
 
+    console.log("products constructor EXIT");
     productService
       .getAll()
       .pipe(switchMap(products => {
@@ -40,9 +43,6 @@ export class ProductsComponent implements OnInit, OnDestroy{
     
   }
 
-  async ngOnInit() {
-    this.subscription = (await this.cartService.getCart()).subscribe(cart => this.cart = cart);
-  }
 
   ngOnDestroy(): void {
       this.subscription.unsubscribe();

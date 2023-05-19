@@ -10,12 +10,16 @@ import { ShoppingCart } from '../models/shopping-cart';
   templateUrl: './bs-navbar.component.html',
   styleUrls: ['./bs-navbar.component.css']
 })
-export class BsNavbarComponent implements OnInit{
+export class BsNavbarComponent {
   isMenuCollapsed = true;
   appUser: AppUser | null;
   cart$: Observable<ShoppingCart>;
 
-  constructor(private auth: AuthService, private cartService: ShoppingCartService){
+  constructor(private auth: AuthService, cartService: ShoppingCartService){
+    console.log("navbar ngOnInit ENTER");
+    this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
+    cartService.getCart().then(cart$ => this.cart$ = cart$);
+    console.log("navbar ngOnInit EXIT");
   }
 
   logout() {
@@ -27,8 +31,4 @@ export class BsNavbarComponent implements OnInit{
     console.log(this.isMenuCollapsed);
   }
 
-  async ngOnInit() {
-      this.auth.appUser$.subscribe(appUser => this.appUser = appUser);
-      this.cart$ = await this.cartService.getCart();
-  }
 }

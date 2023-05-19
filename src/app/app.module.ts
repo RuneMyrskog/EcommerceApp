@@ -29,7 +29,6 @@ import { ValidateMinValueDirective } from './directives/custom-validators/valida
 import { ValidateImgUrlDirective } from './directives/custom-validators/validate-img-url.directive';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
-import { ShoppingCartService } from './services/shopping-cart.service';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 @NgModule({
@@ -66,7 +65,6 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
     AuthService,
     UserService,
     CategoryService,
-    ShoppingCartService
   ],
   bootstrap: [AppComponent]
 })

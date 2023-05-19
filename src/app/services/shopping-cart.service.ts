@@ -4,7 +4,8 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { DatabaseUtility } from './database-utility';
 import { ShoppingCart } from '../models/shopping-cart';
 import { Product } from '../models/product';
-import { ShoppingCartItem } from '../models/shopping-cart-item';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -30,38 +31,54 @@ export class ShoppingCartService {
     return DatabaseUtility.getItem(this.db, '/shopping-carts/' + cartId + '/items/' + productId);
   }
 
+  private delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  private async waitAndReturnCartId(){
+    let cartId: any;
+    while (true) {
+      cartId = localStorage.getItem('cartId');
+      if (cartId) return cartId;
+      await this.delay(100)
+    }
+  }
+
   private async getOrCreateCartId(){
+    
     let cartId = localStorage.getItem('cartId');
     if (cartId) return cartId;
 
-    let result = await this.create();
+    if (localStorage.getItem('creatingCart')){
+      return await this.waitAndReturnCartId();
+    }
 
-    if (!result.key) return;
-    localStorage.setItem('cartId', result.key);
+    localStorage.setItem('creatingCart', "true");
+    let result = await this.create();
+    if(result.key) localStorage.setItem('cartId', result.key);
+ 
     return result.key;
 
   }
 
   async addToCart(product: Product) {
-    this.updateItemQuantity(product, 1)
+    this.updateItem(product, 1)
   }
 
   async removeFromCart(product: Product) {
-    this.updateItemQuantity(product, -1);
+    this.updateItem(product, -1);
   }
 
-  async updateItemQuantity(product: Product, change: number){
+  async updateItem(product: Product, change: number){
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId!, product.key)
     item$.pipe(take(1)).subscribe(item => {
       item.ref.update({
-        product: product,
-        quantity: item.exists ? item.data.quantity + change : 1 + change
+        title: product.title,
+        imageUrl: product.imageUrl,
+        price: product.price,
+        quantity: item.exists ? item.data.quantity + change : 0 + change
       })
     })
   }
-
-
-
-
 }
