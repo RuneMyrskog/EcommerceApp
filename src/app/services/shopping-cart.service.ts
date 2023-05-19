@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { DatabaseUtility } from './database-utility';
 import { ShoppingCart } from '../models/shopping-cart';
+import { Product } from '../models/product';
+import { ShoppingCartItem } from '../models/shopping-cart-item';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +26,7 @@ export class ShoppingCartService {
     
   }
 
-  private getItem(cartId: string, productId: string){
+  private getItem(cartId: string, productId: string) {
     return DatabaseUtility.getItem(this.db, '/shopping-carts/' + cartId + '/items/' + productId);
   }
 
@@ -40,20 +42,20 @@ export class ShoppingCartService {
 
   }
 
-  async addToCart(product: any) {
+  async addToCart(product: Product) {
     this.updateItemQuantity(product, 1)
   }
 
-  async removeFromCart(product: any) {
+  async removeFromCart(product: Product) {
     this.updateItemQuantity(product, -1);
   }
 
-  async updateItemQuantity(product: any, change: number){
+  async updateItemQuantity(product: Product, change: number){
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId!, product.key)
     item$.pipe(take(1)).subscribe(item => {
       item.ref.update({
-        product: product.data,
+        product: product,
         quantity: item.exists ? item.data.quantity + change : 1 + change
       })
     })

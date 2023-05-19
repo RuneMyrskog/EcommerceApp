@@ -9,8 +9,8 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent implements OnDestroy {
-  products: any[];
-  filteredProducts: any[];
+  products: Product[];
+  filteredProducts: Product[];
   subscription: Subscription;
 
   constructor(private productService: ProductService){
@@ -21,7 +21,7 @@ export class AdminProductsComponent implements OnDestroy {
 
   filter(query: string) {
     this.filteredProducts = (query) ?
-      this.products.filter(p => p.data.title.toLowerCase().includes(query.toLowerCase())) :
+      this.products.filter(p => p.title.toLowerCase().includes(query.toLowerCase())) :
       this.products;
   }
 

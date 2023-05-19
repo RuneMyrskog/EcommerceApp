@@ -3,6 +3,7 @@ export class Product {
     price: number;
     category: string;
     imageUrl: string;
+    key: string;
     // data: {
     //     title: string,
     //     price: number,
@@ -10,12 +11,12 @@ export class Product {
     //     imageUrl: string,
     // }
 
-    constructor(data: any) {
+    constructor(data: any, key: string) {
         this.title = data.title;
         this.price = data.price;
         this.category = data.category;
         this.imageUrl = data.imageUrl;
-
+        this.key = key;
     }
     
 }

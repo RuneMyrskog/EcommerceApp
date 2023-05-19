@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { DatabaseUtility } from './database-utility';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -16,26 +17,14 @@ export class ProductService {
 
   }
 
-  getAll() {
-    // return this.db.list('/products').snapshotChanges().pipe(map(actions => {
-    //   return actions.map(a => {
-    //     const key = a.payload.key;
-    //     const data = a.payload.val();
-    //     return { data, key };
-    //   })
-    // }));
-
-    return DatabaseUtility.getList(this.db, '/products');
+  getAll(): Observable<Product[]> {
+    return DatabaseUtility.getList(this.db, '/products')
+      .pipe(map(x => x.map((p: any) => new Product(p.data, p.key))));
   }
 
-  get(productId: string){
-    // return this.db.object('/products/' + productId).snapshotChanges()
-    // .pipe(map(a => {
-    //   const key = a.payload.key;
-    //   const data = a.payload.val();
-    //   return { data, key };
-    // }))
-    return DatabaseUtility.getItem(this.db, '/products/' + productId);
+  get(productId: string): Observable<Product>{
+    return DatabaseUtility.getItem(this.db, '/products/' + productId)
+    .pipe(map(x => new Product(x.data, x.key)));
   }
 
   update(productId: string, product: object) {

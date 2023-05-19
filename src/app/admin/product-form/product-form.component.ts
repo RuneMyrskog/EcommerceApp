@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductFormComponent {
 
   categories$: Observable<any>;
-  product: any = { data: {}};
+  product: any = {};
   id: string | null;
 
   constructor(
@@ -27,7 +27,7 @@ export class ProductFormComponent {
     if (this.id) this.productService.get(this.id).pipe(take(1)).subscribe(product => this.product = product);
   }
 
-  save(product: any) {
+  save(product: Product) {
     if (this.id) this.productService.update(this.id, product);
     else this.productService.create(product);
     
