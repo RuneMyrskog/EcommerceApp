@@ -14,51 +14,11 @@ export class ShoppingCartService {
 
   constructor(private db: AngularFireDatabase) { }
 
-  private create() {
-    return this.db.list('/shopping-carts').push({
-      dateCreated: new Date().getTime()
-    })
-  }
-
-  public async getCart(): Promise<Observable<ShoppingCart>> {
+  async getCart(): Promise<Observable<ShoppingCart>> {
     let cartId = await this.getOrCreateCartId();
     return DatabaseUtility.getItem(this.db, '/shopping-carts/' + cartId)
       .pipe(map(x => new ShoppingCart(x.data.items)));
     
-  }
-
-  private getItem(cartId: string, productId: string) {
-    return DatabaseUtility.getItem(this.db, '/shopping-carts/' + cartId + '/items/' + productId);
-  }
-
-  private delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  private async waitAndReturnCartId(){
-    let cartId: any;
-    while (true) {
-      cartId = localStorage.getItem('cartId');
-      if (cartId) return cartId;
-      await this.delay(100)
-    }
-  }
-
-  private async getOrCreateCartId(){
-    
-    let cartId = localStorage.getItem('cartId');
-    if (cartId) return cartId;
-
-    if (localStorage.getItem('creatingCart')){
-      return await this.waitAndReturnCartId();
-    }
-
-    localStorage.setItem('creatingCart', "true");
-    let result = await this.create();
-    if(result.key) localStorage.setItem('cartId', result.key);
- 
-    return result.key;
-
   }
 
   async addToCart(product: Product) {
@@ -73,12 +33,60 @@ export class ShoppingCartService {
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId!, product.key)
     item$.pipe(take(1)).subscribe(item => {
-      item.ref.update({
+      let quantity = item.exists ? item.data.quantity + change : 0 + change;
+
+      if(quantity === 0) item.ref.remove();
+      else item.ref.update({
         title: product.title,
         imageUrl: product.imageUrl,
         price: product.price,
-        quantity: item.exists ? item.data.quantity + change : 0 + change
+        quantity: quantity
       })
+    })
+  }
+
+  async clearCart(){
+    let cartId = await this.getOrCreateCartId();
+    this.db.object('/shopping-carts/' + cartId + '/items').remove();
+  }
+
+  private getItem(cartId: string, productId: string) {
+    return DatabaseUtility.getItem(this.db, '/shopping-carts/' + cartId + '/items/' + productId);
+  }
+
+  private delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  private async waitAndReturnCartId() {
+    let cartId: any;
+    while (true) {
+      cartId = localStorage.getItem('cartId');
+      if (cartId) return cartId;
+      await this.delay(100)
+    }
+  }
+
+  private async getOrCreateCartId() {
+
+    let cartId = localStorage.getItem('cartId');
+    if (cartId) return cartId;
+
+    if (localStorage.getItem('creatingCart')) {
+      return await this.waitAndReturnCartId();
+    }
+
+    localStorage.setItem('creatingCart', "true");
+    let result = await this.create();
+    if (result.key) localStorage.setItem('cartId', result.key);
+
+    return result.key;
+
+  }
+
+  private create() {
+    return this.db.list('/shopping-carts').push({
+      dateCreated: new Date().getTime()
     })
   }
 }
