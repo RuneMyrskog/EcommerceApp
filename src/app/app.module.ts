@@ -35,6 +35,7 @@ import { ProductService } from './services/product.service';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { ViewOrderComponent } from './view-order/view-order.component';
+import { HeroSectionComponent } from './hero-section/hero-section.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ViewOrderComponent } from './view-order/view-order.component';
     ShoppingCartSummaryComponent,
     ShippingFormComponent,
     ViewOrderComponent,
+    HeroSectionComponent,
   ],
   imports: [
     BrowserModule,

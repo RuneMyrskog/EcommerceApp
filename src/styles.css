@@ -22,3 +22,8 @@ form .btn {
     aspect-ratio: 1 / 1;
     object-fit: cover;
 }
+
+.list-group-item.active {
+    background-color: rgba(var(--bs-dark-rgb), 1);
+    border-color: rgba(var(--bs-dark-rgb), 1);
+}
