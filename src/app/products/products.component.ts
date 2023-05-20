@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit{
   products: Product[] = [];
   filteredProducts: Product[] = [];
   category: string | null;
+  query: string;
   cart$: Observable<ShoppingCart>;
 
   constructor(
@@ -41,10 +42,19 @@ export class ProductsComponent implements OnInit{
       });
   }
 
-  private applyFilter(){
+  applySearchFilter(query: string) {
+    this.applyFilter();
+    
+    this.filteredProducts = (query) ?
+      this.filteredProducts.filter(p => p.title.toLowerCase().includes(query.toLowerCase())) :
+      this.filteredProducts;
+  }
+
+  private applyFilter(query?: string){
+
     this.filteredProducts = (this.category) ?
       this.products.filter(p => p.category == this.category) :
-      this.products;
+      this.products
   }
 
 }

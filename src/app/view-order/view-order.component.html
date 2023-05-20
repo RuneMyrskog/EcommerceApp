@@ -1,0 +1,41 @@
+<h1>Your Order:</h1>
+
+<div class="col-10" *ngIf="order">
+    <h6>order id: {{ order.key }}</h6>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Product</th>
+                <th class="text-center table-right-header">Quantity</th>
+                <th class="text-end table-right-header">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of order.data.items">
+                <td><img class="thumbnail" [src]="item.product.imageUrl" alt=""></td>
+                <td>
+                    {{ item.product.title }}
+                </td>
+                <td class="text-center">
+                    {{ item.quantity }}
+                </td>
+                <td class="text-end">
+                    {{ item.totalPrice | currency:'CAD':'symbol'}}
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th class="text-end">
+                    {{ totalPrice() | currency:'CAD':'symbol'}}
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+
+</div>
+
