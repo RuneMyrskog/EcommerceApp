@@ -1,0 +1,13 @@
+.hero-container {
+    height: 20rem;
+}
+
+#hero-title {
+
+    text-transform: capitalize;
+}
+
+.hero-image {
+    object-fit: cover;
+    width: 20rem;
+}

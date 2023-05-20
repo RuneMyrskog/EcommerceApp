@@ -1,3 +1,14 @@
 .sticky-top {
     top: 4rem;
 }
+
+.horizontal-scroll {
+    overflow-x: auto;
+}
+
+
+.category-option {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}

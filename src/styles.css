@@ -27,3 +27,18 @@ form .btn {
     background-color: rgba(var(--bs-dark-rgb), 1);
     border-color: rgba(var(--bs-dark-rgb), 1);
 }
+
+.btn-primary {
+    background-color: rgba(var(--bs-dark-rgb), 1);
+    border-color: rgba(var(--bs-dark-rgb), 1);
+    border-radius: 0.2rem;
+}
+
+
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: rgba(var(--bs-dark-rgb), 0.4);;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-dark-rgb), 0.4);
+}
