@@ -2,6 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CategoryService } from 'src/app/services/category.service';
 
+
+
+
 @Component({
   selector: 'product-filter',
   templateUrl: './product-filter.component.html',
