@@ -34,6 +34,13 @@ form .btn {
     border-radius: 0.2rem;
 }
 
+.btn-primary:hover {
+    background-color: transparent;
+    color: rgba(var(--bs-dark-rgb), 1);
+    border-color: rgba(var(--bs-dark-rgb), 1);
+    border-radius: 0.2rem;
+}
+
 
 .form-control:focus {
     color: #212529;

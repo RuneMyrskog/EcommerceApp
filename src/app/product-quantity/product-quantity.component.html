@@ -1,11 +1,22 @@
-<div class="row g-0">
-    <div class="col-2">
+<!-- <div class="row g-0">
+    <div class="col-1">
         <button (click)="removeFromCart()" class="btn btn-secondary">-</button>
     </div>
     <div class="col justify-content-center d-flex align-items-center">
         {{ shoppingCart.getQuantity(product) }} in cart
     </div>
-    <div class="col-2">
+    <div class="col-1">
+        <button (click)="addToCart()" class="btn btn-secondary">+</button>
+    </div>
+</div> -->
+<div class="d-flex product-quantity-container">
+    <div class="update-quantity-button">
+        <button (click)="removeFromCart()" class="btn btn-secondary">-</button>
+    </div>
+    <div class="justify-content-center d-flex align-items-center">
+        {{ shoppingCart.getQuantity(product) }} in cart
+    </div>
+    <div class="update-quantity-button">
         <button (click)="addToCart()" class="btn btn-secondary">+</button>
     </div>
 </div>

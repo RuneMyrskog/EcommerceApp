@@ -12,3 +12,7 @@
     display: flex;
     align-items: center;
 }
+
+.list-group-item {
+    border: var(--bs-list-group-border-width) solid rgb(220, 220, 220);
+}

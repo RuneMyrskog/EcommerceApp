@@ -1,4 +1,14 @@
 .btn.btn-secondary {
     width: 100%;
     min-width: fit-content;
+    background-color: transparent;
+    color: black;
+    border: none;
+    border-radius: none;
+    font-weight: bold;
+}
+
+
+.product-quantity-container {
+    justify-content: space-between;
 }
